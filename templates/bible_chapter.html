@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.BookName }} {{ chapter.ChapterId }} глава - Библия{% endblock %}
+{% block description %}Чтение главы {{ chapter.ChapterId }} книги {{ book.BookName }} из Библии. Полный текст и ссылки на другие главы.{% endblock %}
+{% block keywords %}Библия, {{ book.BookName }}, глава {{ chapter.ChapterId }}, чтение Библии, текст Библии{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ request.url }}">{% endblock %}
+{% block og_title %}{{ book.BookName }} {{ chapter.ChapterId }} глава - Библия{% endblock %}
+{% block og_description %}Чтение главы {{ chapter.ChapterId }} книги {{ book.BookName }} из Библии. Полный текст и ссылки на другие главы.{% endblock %}
+{% block og_image %}<meta property="og:image" content="{{ url_for('static', filename='images/bible.png') }}">{% endblock %}
+{% block twitter_card %}<meta name="twitter:card" content="summary_large_image">{% endblock %}
+{% block twitter_title %}{{ book.BookName }} {{ chapter.ChapterId }} глава - Библия{% endblock %}
+{% block twitter_description %}Чтение главы {{ chapter.ChapterId }} книги {{ book.BookName }} из Библии. Полный текст и ссылки на другие главы.{% endblock %}
+{% block twitter_image %}<meta name="twitter:image" content="{{ url_for('static', filename='images/bible.png') }}">{% endblock %}
+
+{% block content %}
+<h1>{{ book.BookName }} {{ chapter.ChapterId }} глава</h1>
+<ol>
+  {% for verse in chapter.Verses %}
+    <li><strong>{{ verse.VerseId }}</strong> {{ verse.Text }}</li>
+  {% endfor %}
+</ol>
+<a href="/bible/{{ book.BookId }}">← Назад к главам</a>
+<br>
+{% if prev_chapter %}
+  <a href="/bible/{{ book.BookId }}/{{ prev_chapter }}">← Предыдущая глава</a>
+{% endif %}
+{% if next_chapter %}
+  <a href="/bible/{{ book.BookId }}/{{ next_chapter }}">Следующая глава →</a>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<!-- Ваши скрипты здесь -->
+{% endblock %}
+{% block styles %}
+<!-- Ваши стили здесь -->
+{% endblock %}
+
+{% block breadcrumbs %}
+<nav>
+  <ol>
+    <li><a href="/">Главная</a></li>
+    <li><a href="/bible">Библия</a></li>
+    <li><a href="/bible/{{ book.BookId }}">{{ book.BookName }}</a></li>
+    <li>{{ chapter.ChapterId }} глава</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block sidebar %}
+<h2>Содержание</h2>
+<ul>
+  {% for chapter in book.Chapters %}
+    <li><a href="/bible/{{ book.BookId }}/{{ chapter.ChapterId }}">{{ chapter.ChapterId }} глава</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block footer %}
+<footer>
+  <p>&copy; 2023 Протестантский сайт</p>
+</footer>
+{% endblock %}

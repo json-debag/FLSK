@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ book.BookName }}</h1>
+<h2>Главы:</h2>
+<ul>
+  {% for chapter in book.Chapters %}
+    <li><a href="/bible/{{ book.BookId }}/{{ chapter.ChapterId }}">Глава {{ chapter.ChapterId }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

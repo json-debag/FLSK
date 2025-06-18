@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Книги Библии</h1>
+<ul>
+  {% for book in books %}
+    <li><a href="/bible/{{ book.BookId }}">{{ book.BookName }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
